@@ -2,20 +2,36 @@
 ##Get stocks, quantity, cost to provide costprice.
 from datetime import datetime
 
+### DEFS ###
+#def to add shares into readable portfolio
+#   - PRTF is a dictionary, easy entry/symbol is a new entry if not already added.
+#   - entry is assgined a dateAdded, shares, cost, costprice entries.
+
 def addShares(prtf):
-    name= "nvda".upper() #input("Enter symbol: ").upper()
+    name= input("Enter symbol: ").upper() #"djjd".upper()
     if name not in prtf:
         prtf[name]={}
-        shares= 8 #int(input("Enter shares: "))
+        shares= int(input("Enter shares: "))
         prtf[name]["shares"] =  shares
-        prtf[name]["cost"] = 10 #float(input("Enter cost: "))
+        prtf[name]["cost"] = float(input("Enter cost: "))
         prtf[name]["costprice"]=prtf[name]["cost"]*shares
-        date=input("Date of Trade: YYYY.MM.DD ")
-        prtf[name]["dateAdded"]=datetime.strptime(date, "%Y.%m.%d")
+        datePurchase= input("Date of Trade: YYYY.MM.DD ")
+        prtf[name]["dateAdded"]=datetime.strptime(datePurchase, "%Y.%m.%d")
         print(f"{prtf[name]['dateAdded'].strftime('%Y.%m.%d')}: {shares} shares of {name} at {prtf[name]['cost']}, for a total value of {prtf[name]['costprice']}")
     else:
         print(f"{name} is already in portfolio {prtf[name]}.")
+
 #There is room above to improve code into a def def to organize data.
+
+#Get Share info for each ticker
+#   - find duration of ownership
+
+def shareInfo(prtf):
+    for key,value in prtf.items():
+        duration=datetime.now()-prtf[key]['dateAdded']
+        purchaseDate=datetime.strftime(prtf[key]['dateAdded'], "%Y.%m.%d")
+        print(key)
+        print(f"Shares Owned: {prtf[key]['shares']}, Cost Price: {prtf[key]['cost']}, Avg Price: {prtf[key]['costprice']}, Purchase Date: {purchaseDate}, Duration: {duration.days} days")
 
 #Navigation Menu
 def start():
@@ -25,10 +41,7 @@ def start():
     print("0. EXIT")
     print("")
 
-def shareInfo(prtf):
-    today=datetime.today()
-    for key,value in prtf.items():
-        print(key,value, f"Duration: {prtf[key]['dateAdded']-today}")
+
 
 
 prtf={}
