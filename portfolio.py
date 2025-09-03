@@ -1,5 +1,4 @@
 
-##Get stocks, quantity, cost to provide costprice.
 from datetime import datetime
 
 ### DEFS ###
@@ -42,14 +41,13 @@ def start():
     print("")
 
 
-
+##########################################
 
 prtf={}
 
 while True:
     start()
     entry=int(input("Please type of #: "))
-
     if entry == 1:
         addShares(prtf)
     elif entry == 2:
@@ -57,11 +55,4 @@ while True:
     if entry == 0:
         break
 
-
-
-
-
-
-
-# print(f"Added {int(quantity)} shares of {ticker} for a total price of {price}")
 
